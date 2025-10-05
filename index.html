@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Tugas - Download Aplikasi</title>
+    <title>TugasKu - Download Aplikasi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -611,7 +611,7 @@
                         <i class="fas fa-sparkles"></i> PRODUCTIVITY APP
                     </div>
                     
-                    <h1>List Tugas</h1>
+                    <h1>TugasKu</h1>
                     
                     <p class="app-description">
                         Aplikasi gratis buatan saya yang bisa ngelist tugas beserta ada beberapa fitur seperti pengingat tugas di bagian tab tugas yang sudah dilist, bisa custom waktu pengumpulan tugas, ringan dan beberapa fitur lain nya.
@@ -849,7 +849,7 @@
             
             // Tampilkan progress notification
             progressDiv.classList.add('active');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memulai Download...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Utiwi Download...';
             btn.style.pointerEvents = 'none';
             
             // Simulasi progress bar
@@ -867,7 +867,7 @@
             // Buat link download sementara
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.download = 'TugasKuV2.apk'; // Nama file saat diunduh
+            link.download = 'https://github.com/Danishtzy24/TugasKu-Download/blob/main/TugasKuV2.apk?raw=true'; // Nama file saat diunduh
             link.style.display = 'none';
             document.body.appendChild(link);
             
@@ -882,7 +882,7 @@
                 
                 setTimeout(() => {
                     progressDiv.classList.remove('active');
-                    btn.innerHTML = '<i class="fas fa-check"></i> Download Berhasil!';
+                    btn.innerHTML = '<i class="fas fa-check"></i> Download Berhasil well!';
                     
                     setTimeout(() => {
                         btn.innerHTML = originalText;
@@ -934,4 +934,5 @@
         });
     </script>
 </body>
+
 </html>
