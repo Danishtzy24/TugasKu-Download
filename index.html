@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Tugas - Download Aplikasi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0f 0%, #0a1a2e 50%, #0a0a0f 100%);
+        }
+
+        .bg-gradient::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-gradient::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dev-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dev-logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            background: #1f2937;
+        }
+
+        .dev-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dev-logo:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .dev-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #60a5fa;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content */
+        main {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Left Side - Info */
+        .app-info {
+            padding: 0 40px;
+        }
+
+        .app-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .app-info h1 {
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .app-description {
+            font-size: 1.2em;
+            color: #9ca3af;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 45px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #6b7280;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .download-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 20px 45px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            width: fit-content;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 60px rgba(59, 130, 246, 0.6);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .download-btn i {
+            font-size: 1.4em;
+        }
+
+        .download-info {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+
+        .download-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-info-item i {
+            color: #3b82f6;
+        }
+
+        /* Right Side - App Card */
+        .app-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 60px 50px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .app-logo-wrapper {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 35px;
+        }
+
+        .app-logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 42px;
+            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.5);
+            transition: transform 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            background: #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 42px;
+        }
+
+        .app-card:hover .app-logo {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-item {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 25px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 0.85em;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-text {
+            color: #6b7280;
+            font-size: 0.95em;
+        }
+
+        .footer-text a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-text a:hover {
+            color: #60a5fa;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .social-link:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .app-info {
+                padding: 0 20px;
+                text-align: center;
+            }
+
+            .app-info h1 {
+                font-size: 3em;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+
+            .download-section {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-info h1 {
+                font-size: 2.5em;
+                letter-spacing: -1px;
+            }
+
+            .app-description {
+                font-size: 1.1em;
+            }
+
+            .app-card {
+                padding: 40px 30px;
+            }
+
+            .app-logo {
+                width: 140px;
+                height: 140px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+
+            .download-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 20px 0;
+            }
+
+            .app-info h1 {
+                font-size: 2em;
+            }
+
+            .app-badge {
+                font-size: 11px;
+                padding: 6px 15px;
+            }
+
+            .download-btn {
+                width: 100%;
+                padding: 18px 35px;
+            }
+
+            .app-card {
+                padding: 30px 20px;
+            }
+
+            .stat-number {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Download Progress */
+        .download-progress {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: none;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            min-width: 250px;
+        }
+
+        .download-progress.active {
+            display: flex;
+        }
+
+        .progress-icon {
+            font-size: 1.5em;
+            color: #3b82f6;
+        }
+
+        .progress-text {
+            flex: 1;
+            color: #e5e7eb;
+            font-size: 0.9em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <div class="container">
+        <header>
+            <div class="dev-logo-container">
+                <div class="dev-logo">
+                    <img src="Logo.png" alt="Developer Logo">
+                </div>
+                <span class="dev-name">Danishtzy24</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <!-- Left Side - App Info -->
+                <div class="app-info">
+                    <div class="app-badge">
+                        <i class="fas fa-sparkles"></i> PRODUCTIVITY APP
+                    </div>
+                    
+                    <h1>List Tugas</h1>
+                    
+                    <p class="app-description">
+                        Aplikasi gratis buatan saya yang bisa ngelist tugas beserta ada beberapa fitur seperti pengingat tugas di bagian tab tugas yang sudah dilist, bisa custom waktu pengumpulan tugas, ringan dan beberapa fitur lain nya.
+                    </p>
+
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">Downloads</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4.8</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5MB</div>
+                            <div class="stat-label">Size</div>
+                        </div>
+                    </div>
+
+                    <div class="download-section">
+                        <a href="#" class="download-btn" onclick="handleDownload(event)">
+                            <i class="fab fa-android"></i>
+                            Download untuk Android
+                        </a>
+                        
+                        <div class="download-info">
+                            <div class="download-info-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>100% Aman</span>
+                            </div>
+                            <div class="download-info-item">
+                                <i class="fas fa-download"></i>
+                                <span>Gratis Selamanya</span>
+                            </div>
+                            <div class="download-info-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Android 5.0+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - App Card -->
+                <div class="app-showcase">
+                    <div class="app-card">
+                        <div class="app-logo-wrapper">
+                            <div class="app-logo">
+                                <!-- Ganti dengan URL logo PNG Anda -->
+                                <img src="TugasKu.png" alt="List Tugas Logo">
+                            </div>
+                        </div>
+
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div class="feature-title">Super Cepat</div>
+                                <div class="feature-desc">Performa optimal tanpa lag (WebViewApk)</div>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div class="feature-title">Aman & Privat</div>
+                                <div class="feature-desc">100% data terlindungi</div>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                                <div class="feature-title">Desain Modern</div>
+                                <div class="feature-desc">UI minimalis +Smooth</div>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="feature-title">Cloud Sync</div>
+                                <div class="feature-desc">Sinkronisasi otomatis</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" class="social-link" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-link" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <p class="footer-text">
+                © 2024 List Tugas. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Download Progress Notification -->
+    <div class="download-progress" id="downloadProgress">
+        <div class="progress-icon">
+            <i class="fas fa-download"></i>
+        </div>
+        <div class="progress-content">
+            <div class="progress-text">Mengunduh List Tugas.apk...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DevTools Protection - Keyboard Shortcuts Only
+        (function() {
+            // Disable right-click
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Ctrl+Shift+I (DevTools)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Ctrl+Shift+J (Console)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Ctrl+Shift+C (Select Element)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Additional protection for Mac
+                if (e.metaKey) {
+                    // Cmd+Option+I (DevTools on Mac)
+                    if (e.altKey && e.keyCode === 73) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    
+                    // Cmd+Option+J (Console on Mac)
+                    if (e.altKey && e.keyCode === 74) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    
+                    // Cmd+Option+U (View Source on Mac)
+                    if (e.altKey && e.keyCode === 85) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            });
+            
+            // Disable drag and drop
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable text selection on entire page
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable copy
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable cut
+            document.addEventListener('cut', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable paste
+            document.addEventListener('paste', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        })();
+
+        function handleDownload(event) {
+            event.preventDefault();
+            
+            // Ganti dengan URL file APK Anda yang sebenarnya
+            // Contoh:
+            // - Jika file di folder yang sama: './list-tugas.apk'
+            // - Jika di subfolder: './apk/list-tugas.apk'
+            // - Jika di hosting eksternal: 'https://example.com/files/list-tugas.apk'
+            // - Jika di GitHub: 'https://raw.githubusercontent.com/username/repo/main/list-tugas.apk'
+            const downloadUrl = './list-tugas.apk'; // <-- GANTI INI DENGAN URL FILE APK ANDA
+            
+            // Tampilkan progress download
+            const progressDiv = document.getElementById('downloadProgress');
+            const progressFill = document.getElementById('progressFill');
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            
+            // Tampilkan progress notification
+            progressDiv.classList.add('active');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memulai Download...';
+            btn.style.pointerEvents = 'none';
+            
+            // Simulasi progress bar
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 90) progress = 90;
+                progressFill.style.width = progress + '%';
+                
+                if (progress >= 90) {
+                    clearInterval(progressInterval);
+                }
+            }, 200);
+            
+            // Buat link download sementara
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'TugasKuV2.apk'; // Nama file saat diunduh
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            
+            // Trigger download
+            setTimeout(() => {
+                link.click();
+                document.body.removeChild(link);
+                
+                // Update UI
+                clearInterval(progressInterval);
+                progressFill.style.width = '100%';
+                
+                setTimeout(() => {
+                    progressDiv.classList.remove('active');
+                    btn.innerHTML = '<i class="fas fa-check"></i> Download Berhasil!';
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.pointerEvents = 'auto';
+                        progressFill.style.width = '0%';
+                    }, 2000);
+                }, 500);
+            }, 1000);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect untuk background
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) / 50;
+            const moveY = (e.clientY - window.innerHeight / 2) / 50;
+            
+            const beforeElement = document.querySelector('.bg-gradient::before');
+            const afterElement = document.querySelector('.bg-gradient::after');
+            
+            if (beforeElement) {
+                beforeElement.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+            if (afterElement) {
+                afterElement.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+
+        // Lazy loading untuk gambar
+        document.addEventListener('DOMContentLoaded', () => {
+            const logos = document.querySelectorAll('img');
+            logos.forEach(logo => {
+                logo.addEventListener('load', () => {
+                    logo.classList.remove('loading');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
